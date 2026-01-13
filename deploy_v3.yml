@@ -1,0 +1,28 @@
+- hosts: web
+  become: yes
+
+  vars:
+    web_package: nginx
+    web_root: /var/www/html
+    web_file: index.html
+
+  tasks:
+    - name: Install web server
+      apt:
+        name: "{{ web_package }}"
+        state: present
+        update_cache: yes
+
+    - name: Copy website files
+      copy:
+        src: files/{{ web_file }}
+        dest: "{{ web_root }}/{{ web_file }}"
+        mode: '0644'
+      notify: Restart web server
+
+    - name: Ensure nginx is running (Docker Safe)
+      shell:
+        pgrep nginx || nginx
+  handlers:
+    - name: Restart web server
+      command: nginx -s reload
