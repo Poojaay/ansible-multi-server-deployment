@@ -9,7 +9,7 @@
 ##  Project Structure
 ...
 
-## ⚙️What the Playbook Does   👈PASTE HERE
+## ⚙️What the Playbook Does  
 - Installs Nginx
 - Deploys static website files
 - Uses variables for reusability
